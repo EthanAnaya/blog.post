@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethan's Blog</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header styles */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .github-link {
+            color: #7dd3fc;
+            text-decoration: none;
+            border-bottom: 2px dotted transparent;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            border-bottom-color: #7dd3fc;
+            transform: skew(-5deg);
+        }
+
+        /* Blog grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Blog post card */
+        .blog-post {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+        }
+
+        .post-title {
+            color: #38bdf8;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .post-excerpt {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .post-date {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Easter Eggs */
+        .secret-cat {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .show-cat {
+            bottom: 20px;
+            opacity: 1;
+        }
+
+        .hidden-message {
+            color: #334155;
+            position: absolute;
+            font-size: 0.8rem;
+            transform: rotate(-5deg);
+        }
+
+        .coffee-stain {
+            position: fixed;
+            opacity: 0.05;
+            pointer-events: none;
+            animation: float 8s infinite;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #64748b;
+            animation: fadeIn 1s ease-in;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="coffee-stain" style="top:20%;left:10%">☕</div>
+    <div class="coffee-stain" style="top:70%;right:15%">☕</div>
+
+    <header class="header">
+        <h1>Ethan's Eclectic Adventures</h1>
+        <p>Chronicling life's random moments • By Ethan Anaya</p>
+        <p><a href="https://github.com/ethananaya" class="github-link" target="_blank">/ethananaya on GitHub</a></p>
+    </header>
+
+    <main>
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <a href="post1.html" class="blog-post">
+                <div class="hidden-message">// psst... hover the coffee cups!</div>
+                <h2 class="post-title">"Hating" Someone</h2>
+                <p class="post-excerpt">My realization with hate</p>
+                <p class="post-date">March 15, 2024</p>
+            </a>
+
+            <!-- Blog Post 2 -->
+            <a href="post2.html" class="blog-post">
+                <h2 class="post-title">Trying To End My Phone Addiction</h2>
+                <p class="post-excerpt">I definitly did not fail at it...</p>
+                <p class="post-date">March 12, 2024</p>
+            </a>
+
+            <!-- Blog Post 3 -->
+            <a href="post3.html" class="blog-post">
+                <h2 class="post-title">My Attempt At Phillisophy</h2>
+                <p class="post-excerpt">(spoiler: im bad at it)</p>
+                <p class="post-date">March 10, 2024</p>
+            </a>
+        </div>
+    </main>
+
+    <div class="secret-cat">😹</div>
+
+    <footer class="footer">
+        <p> Ethan's Random Yappin • Made with ☕ and questionable life choices...</p>
+    </footer>
+
+    <script>
+        // Coffee cup interaction
+        document.querySelectorAll('.coffee-stain').forEach(cup => {
+            cup.addEventListener('mouseover', function() {
+                this.style.opacity = '0.2';
+                this.style.transform = 'scale(1.2)';
+            });
+            
+            cup.addEventListener('mouseout', function() {
+                this.style.opacity = '0.05';
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Cat reveal on spacebar press
+        let catTimeout;
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                document.querySelector('.secret-cat').classList.add('show-cat');
+                clearTimeout(catTimeout);
+                catTimeout = setTimeout(() => {
+                    document.querySelector('.secret-cat').classList.remove('show-cat');
+                }, 2000);
+            }
+        });
+
+        // Random background effect
+        document.addEventListener('mousemove', (e) => {
+            document.body.style.background = `radial-gradient(at ${e.clientX}px ${e.clientY}px, #1e293b 0%, #0f172a 100%)`;
+        });
+    </script>
+</body>
+</html>
