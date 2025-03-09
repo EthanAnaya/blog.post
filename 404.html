@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - System Failure</title>
+    <style>
+        /* Base styles matching main blog */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a192f;
+            color: #64ffda;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* CRT screen effect */
+        .crt-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 25, 47, 0.1) 50%, rgba(0, 0, 0, 0.25) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+
+        /* Terminal container */
+        .terminal {
+            background: #112240;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.1);
+            max-width: 800px;
+            margin: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glitch text effect */
+        .glitch {
+            animation: glitch 2s infinite;
+            text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
+                        -0.025em -0.05em 0 rgba(0,255,0,.75),
+                        0.025em 0.05em 0 rgba(0,0,255,.75);
+        }
+
+        /* ASCII art styling */
+        .ascii-art {
+            color: #64ffda;
+            white-space: pre;
+            font-size: 0.8rem;
+            margin: 2rem 0;
+            animation: scan 15s linear infinite;
+        }
+
+        /* Home button matching blog style */
+        .home-link {
+            background: #64ffda;
+            color: #0a192f;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .home-link:hover {
+            background: #0a192f;
+            color: #64ffda;
+            border-color: #64ffda;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* Hidden command prompt */
+        .prompt {
+            position: fixed;
+            bottom: -50px;
+            left: 20px;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .show-prompt {
+            bottom: 20px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    
+    <div class="terminal">
+        <h1 class="glitch">ERROR 404: FILE NOT FOUND</h1>
+        <div class="ascii-art" id="ascii-art" onclick="cycleAscii()">
+            ╔══╗ ■ 
+            ║██║ ■ ■ 
+            ║██║ ■ ■ ▄▄▄▄ 
+            ║◎◎║ ■ ■ █████ 
+            ╚══╝ ■ ■ ▀▀▀▀
+        </div>
+        <p>SYSTEM DIAGNOSTICS:</p>
+        <ul>
+            <li>ROUTE: <span id="path">[REDACTED]</span></li>
+            <li>STATUS: <span class="blink">UNAUTHORIZED</span></li>
+            <li>RESPONSE: TERMINAL OVERRIDE</li>
+        </ul>
+        <a href="/" class="home-link">INITIALIZE HOMEPAGE.EXE</a>
+    </div>
+
+    <div class="prompt">> ACCESS GRANTED [hidden menu]</div>
+
+    <script>
+        // Konami Code Easter Egg
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+                          'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.querySelector('.prompt').classList.add('show-prompt');
+                    setTimeout(() => {
+                        document.querySelector('.prompt').classList.remove('show-prompt');
+                    }, 3000);
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        // ASCII art cycler
+        const asciiArts = [
+            `╔══╗ ■ 
+            ║██║ ■ ■ 
+            ║██║ ■ ■ ▄▄▄▄ 
+            ║◎◎║ ■ ■ █████ 
+            ╚══╝ ■ ■ ▀▀▀▀`,
+
+            `▄▄▄▄▄▄▄  
+            █ ERROR █ 
+            ▀▀▀███▀▀  
+              █ █    
+             ▀▀ ▀▀`,
+
+            `⣿⣿⣿⣿⣿⣿⣿
+            ⣿⣿⣿⣿⣿⣿⣿
+            ⣿⣿⠛⠛⣿⣿
+            ⣿⣿⣿⣿⣿⣿⣿
+            ⣿⣿⣿⣿⣿⣿⣿`
+        ];
+
+        let asciiIndex = 0;
+        function cycleAscii() {
+            asciiIndex = (asciiIndex + 1) % asciiArts.length;
+            document.getElementById('ascii-art').textContent = asciiArts[asciiIndex];
+        }
+
+        // Dynamic path display
+        document.getElementById('path').textContent = window.location.pathname;
+
+        // Console message
+        console.log("%c> SYSTEM ALERT: Try the Konami Code for hidden features!", 
+                   "color: #64ffda; font-family: 'Courier New'; font-size: 1.2rem;");
+    </script>
+</body>
+</html>
